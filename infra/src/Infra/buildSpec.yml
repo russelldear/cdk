@@ -1,6 +1,6 @@
 ﻿---
-version: '0.2'
+version: 0.2
 phases:
   build:
     commands:
-    - echo "Hello, CodeBuild!"
+    - "echo \"Hello, CodeBuild!\""
