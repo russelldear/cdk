@@ -49,3 +49,4 @@ Run these in the `infra` directory:
 ### Next steps
 - Spin up a CodeBuild project in CDK to build & deploy the lambda on changes in `master`.
 - Add custom domain via CDK
+- Combine infra + lambda solutions
