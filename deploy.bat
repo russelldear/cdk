@@ -1,9 +1,13 @@
-# Don't forget to chek your prerequisites in README.md
+# Don't forget to check you've done all the prerequisites in README.md
 
-cd src
+pushd src
 
 dotnet lambda package -o ../publish/SinglePageApp.zip
 
-cd ../infra
+popd
+
+pushd infra
 
 cdk deploy
+
+popd
