@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGatewayv2;
 using Amazon.CDK.AWS.APIGatewayv2.Integrations;
+using Amazon.CDK.AWS.CodeBuild;
 using Amazon.CDK.AWS.Lambda;
 
 namespace Infra
@@ -35,6 +37,25 @@ namespace Infra
             ApiGatewayEndpoint = new CfnOutput(this, "GatewayUrl", new CfnOutputProps
             {
                 Value = httpApi.ApiEndpoint
+            });
+
+            var githubSource = new GitHubSourceProps
+            {
+                Owner = "russelldear",
+                Repo = "cdk",
+                Webhook = true,
+                WebhookTriggersBatchBuild = true,
+                WebhookFilters = new[]
+                {
+                    FilterGroup.InEventOf(EventAction.PUSH).AndBranchIs("master"),
+                    FilterGroup.InEventOf(EventAction.PULL_REQUEST_MERGED).AndBranchIs("master"),
+                }
+            };
+
+            var codeBuild = new Project(this, "SinglePageAppCodeBuild", new ProjectProps
+            {
+                Source = Source.GitHub(githubSource),
+                BuildSpec = BuildSpec.FromSourceFilename("./infra/src/Infra/buildSpec.yml")
             });
         }
     }
