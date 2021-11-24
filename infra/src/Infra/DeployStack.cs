@@ -44,7 +44,6 @@ namespace Infra
                 Owner = "russelldear",
                 Repo = "cdk",
                 Webhook = true,
-                WebhookTriggersBatchBuild = true,
                 WebhookFilters = new[]
                 {
                     FilterGroup.InEventOf(EventAction.PUSH).AndBranchIs("master"),
