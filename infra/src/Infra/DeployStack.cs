@@ -3,7 +3,6 @@ using Amazon.CDK;
 using Amazon.CDK.AWS.APIGatewayv2;
 using Amazon.CDK.AWS.APIGatewayv2.Integrations;
 using Amazon.CDK.AWS.CodeBuild;
-using Amazon.CDK.AWS.IAM;
 using Amazon.CDK.AWS.Lambda;
 
 namespace Infra
@@ -62,7 +61,7 @@ namespace Infra
                         {{"build", new YamlNode
                             {{"commands", new []
                                 {
-                                    "echo \"Hello, CodeBuild!\""
+                                    "echo \"Hello, " + handler.FunctionName + "!\""
                                 }
                             }}
                         }}
