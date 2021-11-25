@@ -61,7 +61,9 @@ namespace Infra
                         {{"build", new YamlNode
                             {{"commands", new []
                                 {
-                                    "echo \"Hello, " + handler.FunctionName + "!\""
+                                    "echo \"Deploying " + handler.FunctionName + "\"",
+                                    "dotnet tool install --global Amazon.Lambda.Tools --version 5.0.1",
+                                    "dotnet lambda deploy-function" + handler.FunctionName
                                 }
                             }}
                         }}
