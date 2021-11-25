@@ -62,8 +62,9 @@ namespace Infra
                             {{"commands", new []
                                 {
                                     "echo \"Deploying " + handler.FunctionName + "\"",
+                                    "cd src",
                                     "dotnet tool install --global Amazon.Lambda.Tools --version 5.0.1",
-                                    "dotnet lambda deploy-function" + handler.FunctionName
+                                    "dotnet lambda deploy-function " + handler.FunctionName
                                 }
                             }}
                         }}
