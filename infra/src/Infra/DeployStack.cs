@@ -3,6 +3,7 @@ using Amazon.CDK;
 using Amazon.CDK.AWS.APIGatewayv2;
 using Amazon.CDK.AWS.APIGatewayv2.Integrations;
 using Amazon.CDK.AWS.CodeBuild;
+using Amazon.CDK.AWS.IAM;
 using Amazon.CDK.AWS.Lambda;
 
 namespace Infra
@@ -51,6 +52,16 @@ namespace Infra
                 }
             };
 
+            var codeBuildRole = new Role(this, "SinglePageAppCodeBuildRole", new RoleProps
+            {
+                AssumedBy = new AnyPrincipal(),
+                ManagedPolicies = new []
+                {
+                    ManagedPolicy.FromAwsManagedPolicyName("AWSLambda_FullAccess")
+                },
+                
+            });
+
             var codeBuild = new Project(this, "SinglePageAppCodeBuild", new ProjectProps
             {
                 Source = Source.GitHub(githubSource),
@@ -73,7 +84,8 @@ namespace Infra
                 Environment = new BuildEnvironment
                 {
                     BuildImage = LinuxBuildImage.AMAZON_LINUX_2_3
-                }
+                },
+                Role = codeBuildRole
             });
         }
     }
