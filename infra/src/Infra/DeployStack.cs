@@ -69,7 +69,11 @@ namespace Infra
                             }}
                         }}
                     }
-                })
+                }),
+                Environment = new BuildEnvironment
+                {
+                    BuildImage = LinuxBuildImage.AMAZON_LINUX_2_3
+                }
             });
         }
     }
